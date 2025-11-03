@@ -5,9 +5,10 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 interface Todo {
   id: string;
@@ -51,7 +52,6 @@ export default function HomeScreen({ theme, toggleTheme }: HomeScreenProps) {
     <SafeAreaView
       className={`flex-1 ${isDark ? "bg-[#1E1E1E]" : "bg-[#FAFAFA]"} px-5`}
     >
-      {/* Header */}
       <View className="flex-row justify-between items-center mt-12">
         <Text
           className={`text-3xl font-bold tracking-widest ${
