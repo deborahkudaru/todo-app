@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { useTheme } from "@/context/ThemeContext";
 
 interface Todo {
   id: string;
@@ -16,12 +16,8 @@ interface Todo {
   completed: boolean;
 }
 
-interface HomeScreenProps {
-  theme: "light" | "dark";
-  toggleTheme: () => void;
-}
-
-export default function HomeScreen({ theme, toggleTheme }: HomeScreenProps) {
+export default function HomeScreen() {
+  const { theme, toggleTheme } = useTheme();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [text, setText] = useState<string>("");
 
@@ -52,6 +48,7 @@ export default function HomeScreen({ theme, toggleTheme }: HomeScreenProps) {
     <SafeAreaView
       className={`flex-1 ${isDark ? "bg-[#1E1E1E]" : "bg-[#FAFAFA]"} px-5`}
     >
+      {/* Rest of your component remains the same */}
       <View className="flex-row justify-between items-center mt-12">
         <Text
           className={`text-3xl font-bold tracking-widest ${
