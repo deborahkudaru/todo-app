@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { useTheme } from '@/context/ThemeContext';
-import { Id } from '@/convex/_generated/dataModel';
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { useTheme } from "@/context/ThemeContext";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface TodoItemProps {
   item: {
@@ -14,39 +15,47 @@ interface TodoItemProps {
   onDelete: (id: Id<"todos">) => void;
 }
 
-export default function TodoItem({ item, onToggleComplete, onDelete }: TodoItemProps) {
+export default function TodoItem({
+  item,
+  onToggleComplete,
+  onDelete,
+}: TodoItemProps) {
   const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const isDark = theme === "dark";
 
   return (
     <View
-      className={`flex-row items-center justify-between rounded-[5px] px-4 py-4 border-b ${
-        isDark ? 'bg-[#2C2C2C] border-[#393A4C]' : 'bg-white border-[#E4E5F1]'
+      className={`flex-row items-center justify-between px-4 py-6 border-b ${
+        isDark ? "bg-[#25273D] border-[#393A4C]" : "bg-white border-[#E4E5F1]"
       }`}
     >
       <TouchableOpacity onPress={() => onToggleComplete(item._id)}>
-        <View
-          className={`w-5 h-5 rounded-full border items-center justify-center ${
-            item.isCompleted 
-              ? 'bg-gradient-to-br from-[#57DDFF] to-[#C058F3] border-0' 
-              : isDark 
-                ? 'border-[#393A4C]' 
-                : 'border-[#E4E5F1]'
-          }`}
-        >
-          {item.isCompleted && (
+        {item.isCompleted ? (
+          <LinearGradient
+            colors={["#57DDFF", "#C058F3"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            className="w-5 h-5 rounded-full items-center justify-center"
+            style={{ borderRadius: 10 }} 
+          >
             <Feather name="check" size={14} color="#fff" />
-          )}
-        </View>
+          </LinearGradient>
+        ) : (
+          <View
+            className={`w-5 h-5 rounded-full border items-center justify-center ${
+              isDark ? "border-[#393A4C]" : "border-[#E4E5F1]"
+            }`}
+          />
+        )}
       </TouchableOpacity>
 
       <Text
         className={`flex-1 ml-3 text-base ${
           item.isCompleted
-            ? 'text-gray-400 line-through'
+            ? "text-gray-400 line-through"
             : isDark
-            ? 'text-[#C8CBE7]'
-            : 'text-[#484B6A]'
+              ? "text-[#C8CBE7]"
+              : "text-[#484B6A]"
         }`}
       >
         {item.text}

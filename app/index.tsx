@@ -4,8 +4,9 @@ import { useTheme } from "@/context/ThemeContext";
 import Header from "@/components/header";
 import TodoInput from "@/components/todo-input";
 import TodoList from "@/components/todo-list";
-import TodoFooter from "@/components/todo-footer";
-import { Text, View } from "react-native";
+import TodoFilter from "@/components/todo-filter";
+import { Text, View, ImageBackground } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -13,24 +14,23 @@ import { Id } from "@/convex/_generated/dataModel";
 export default function HomeScreen() {
   const { theme } = useTheme();
   const [text, setText] = useState<string>("");
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
-  // Convex queries
   const allTodos = useQuery(api.todos.getTodos);
   const activeTodos = useQuery(api.todos.getActiveTodos);
   const completedTodos = useQuery(api.todos.getCompletedTodos);
 
-  // Convex mutations
   const createTodo = useMutation(api.todos.createTodo);
   const toggleTodo = useMutation(api.todos.toggleTodo);
   const deleteTodo = useMutation(api.todos.deleteTodo);
   const clearCompletedMutation = useMutation(api.todos.clearCompleted);
 
-  // Get filtered todos based on current filter
-  const todos = 
-    filter === 'all' ? allTodos :
-    filter === 'active' ? activeTodos :
-    completedTodos;
+  const todos =
+    filter === "all"
+      ? allTodos
+      : filter === "active"
+        ? activeTodos
+        : completedTodos;
 
   const addTodo = async (): Promise<void> => {
     if (!text.trim()) return;
@@ -54,35 +54,62 @@ export default function HomeScreen() {
   const isDark = theme === "dark";
 
   return (
-    <SafeAreaView
-      className={`flex-1 ${isDark ? "bg-[#1E1E1E]" : "bg-[#FAFAFA]"} px-6 pt-12`}
-    >
-      <Header />
-      
-      <View className="mt-8">
-        <TodoInput 
-          value={text}
-          onChangeText={setText}
-          onSubmit={addTodo}
+    <SafeAreaView className="flex-1">
+      {/* 🌆 Top section with background image and gradient overlay */}
+      <ImageBackground
+        source={
+          isDark
+            ? require("@/assets/images/bg-image-dark.png")
+            : require("@/assets/images/bg-image.png")
+        }
+        className="relative"
+        resizeMode="cover"
+      >
+        <LinearGradient
+          colors={["rgba(192, 88, 243, 0.6)", "rgba(85, 221, 255, 0.6)"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
         />
-        
-        <TodoList
-          todos={todos || []}
-          onToggleComplete={toggleComplete}
-          onDelete={handleDeleteTodo}
-        />
-        
-        <TodoFooter
-          itemsLeft={itemsLeft}
-          onClearCompleted={clearCompleted}
-          filter={filter}
-          onFilterChange={setFilter}
-        />
-      </View>
 
-      <Text className={`text-center mt-8 text-sm ${isDark ? 'text-[#5B5E7E]' : 'text-[#9495A5]'}`}>
-        Drag and drop to reorder list
-      </Text>
+        <View className="pb-14 px-6">
+          <Header />
+          <View className="mt-8">
+            <TodoInput value={text} onChangeText={setText} onSubmit={addTodo} />
+          </View>
+        </View>
+      </ImageBackground>
+
+      <View
+        className={`flex-1 px-6 ${isDark ? "bg-[#14151F]" : "bg-[#FAFAFA]"}`}
+      >
+        <View className="-mt-8 flex-1">
+          <TodoList
+            todos={todos || []}
+            onToggleComplete={toggleComplete}
+            onDelete={handleDeleteTodo}
+            itemsLeft={itemsLeft}
+            onClearCompleted={clearCompleted}
+          />
+
+          <TodoFilter filter={filter} onFilterChange={setFilter} />
+
+          <View className="flex-1" />
+          <Text
+            className={`text-center mb-8 text-sm ${
+              isDark ? "text-[#5B5E7E]" : "text-[#9495A5]"
+            }`}
+          >
+            Drag and drop to reorder list
+          </Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }

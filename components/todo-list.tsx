@@ -1,8 +1,9 @@
-import React from 'react';
-import { FlatList, Text } from 'react-native';
-import { useTheme } from '@/context/ThemeContext';
-import TodoItem from './todo-item';
-import { Id } from '@/convex/_generated/dataModel';
+import React from "react";
+import { FlatList, Text, View } from "react-native";
+import { useTheme } from "@/context/ThemeContext";
+import TodoItem from "./todo-item";
+import TodoFooter from "./todo-footer";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface Todo {
   _id: Id<"todos">;
@@ -16,17 +17,24 @@ interface TodoListProps {
   todos: Todo[];
   onToggleComplete: (id: Id<"todos">) => void;
   onDelete: (id: Id<"todos">) => void;
+  itemsLeft: number;
+  onClearCompleted: () => void;
 }
 
-export default function TodoList({ todos, onToggleComplete, onDelete }: TodoListProps) {
+export default function TodoList({
+  todos,
+  onToggleComplete,
+  onDelete,
+  itemsLeft,
+  onClearCompleted,
+}: TodoListProps) {
   const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const isDark = theme === "dark";
 
   return (
     <FlatList
       data={todos}
       keyExtractor={(item) => item._id}
-      className="mt-6 rounded-sm shadow-xl"
       renderItem={({ item }) => (
         <TodoItem
           item={item}
@@ -35,10 +43,20 @@ export default function TodoList({ todos, onToggleComplete, onDelete }: TodoList
         />
       )}
       ListEmptyComponent={
-        <Text className={`text-center mt-10 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-          No todos yet 📝
-        </Text>
+        <View className="py-16 items-center justify-center">
+          <Text
+            className={`text-center text-base ${
+              isDark ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
+            No todos yet 📝
+          </Text>
+        </View>
       }
+      ListFooterComponent={
+        <TodoFooter itemsLeft={itemsLeft} onClearCompleted={onClearCompleted} />
+      }
+      showsVerticalScrollIndicator={false}
     />
   );
 }
