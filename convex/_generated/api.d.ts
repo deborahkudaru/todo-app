@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as scheme from "../scheme.js";
+import type * as todos from "../todos.js";
+
 import type {
   ApiFromModules,
   FilterApi,
@@ -22,7 +25,10 @@ import type {
  * const myFunctionReference = api.myModule.myFunction;
  * ```
  */
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  scheme: typeof scheme;
+  todos: typeof todos;
+}>;
 declare const fullApiWithMounts: typeof fullApi;
 
 export declare const api: FilterApi<
