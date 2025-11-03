@@ -32,31 +32,44 @@ export default function TodoList({
   const isDark = theme === "dark";
 
   return (
-    <FlatList
-      data={todos}
-      keyExtractor={(item) => item._id}
-      renderItem={({ item }) => (
-        <TodoItem
-          item={item}
-          onToggleComplete={onToggleComplete}
-          onDelete={onDelete}
-        />
-      )}
-      ListEmptyComponent={
-        <View className="py-16 items-center justify-center">
-          <Text
-            className={`text-center text-base ${
-              isDark ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
-            No todos yet 📝
-          </Text>
-        </View>
-      }
-      ListFooterComponent={
-        <TodoFooter itemsLeft={itemsLeft} onClearCompleted={onClearCompleted} />
-      }
-      showsVerticalScrollIndicator={false}
-    />
+    <View
+      className={`rounded-[8px] overflow-hidden mb-4 ${
+        isDark ? "bg-[#25273D]" : "bg-white"
+      }`}
+      style={{
+        shadowColor: isDark ? "#000" : "#9CA3AF",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: isDark ? 0.35 : 0.3,
+        shadowRadius: 12,
+        elevation: 10,
+      }}
+    >
+      <FlatList
+        data={todos}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <TodoItem
+            item={item}
+            onToggleComplete={onToggleComplete}
+            onDelete={onDelete}
+          />
+        )}
+        ListEmptyComponent={
+          <View className="py-16 items-center justify-center">
+            <Text
+              className={`text-center text-base ${
+                isDark ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
+              No todos yet 📝
+            </Text>
+          </View>
+        }
+        ListFooterComponent={
+          <TodoFooter itemsLeft={itemsLeft} onClearCompleted={onClearCompleted} />
+        }
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
   );
 }

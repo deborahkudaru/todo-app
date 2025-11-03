@@ -87,16 +87,18 @@ export default function HomeScreen() {
       </ImageBackground>
 
       <View
-        className={`flex-1 px-6 ${isDark ? "bg-[#14151F]" : "bg-[#FAFAFA]"}`}
+        className={`flex-1 ${isDark ? "bg-[#14151F]" : "bg-[#FAFAFA]"}`}
       >
-        <View className="-mt-8 flex-1">
-          <TodoList
-            todos={todos || []}
-            onToggleComplete={toggleComplete}
-            onDelete={handleDeleteTodo}
-            itemsLeft={itemsLeft}
-            onClearCompleted={clearCompleted}
-          />
+        <View className="flex-1 px-6 pt-6">
+          <View className="-mt-14 mb-6">
+            <TodoList
+              todos={todos || []}
+              onToggleComplete={toggleComplete}
+              onDelete={handleDeleteTodo}
+              itemsLeft={itemsLeft}
+              onClearCompleted={clearCompleted}
+            />
+          </View>
 
           <TodoFilter filter={filter} onFilterChange={setFilter} />
 
