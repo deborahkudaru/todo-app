@@ -11,8 +11,8 @@ export default function TodoFilter({
   filter,
   onFilterChange,
 }: FilterButtonsProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { currentTheme } = useTheme(); // Change to currentTheme
+  const isDark = currentTheme === "dark"; // Use currentTheme
 
   return (
     <View
@@ -37,8 +37,8 @@ export default function TodoFilter({
               filter === filterType
                 ? "text-[#3A7CFD]"
                 : isDark
-                ? "text-[#5B5E7E]"
-                : "text-[#9495A5]"
+                  ? "text-[#5B5E7E]"
+                  : "text-[#9495A5]"
             }`}
           >
             {filterType.charAt(0).toUpperCase() + filterType.slice(1)}

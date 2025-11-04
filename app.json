@@ -11,6 +11,13 @@
     "ios": {
       "supportsTablet": true
     },
+    "extra": {
+      "convexUrl": "https://cheery-dinosaur-348.convex.cloud",
+      "router": {},
+      "eas": {
+        "projectId": "745a8ee5-881f-4cbf-beec-7132bdbe954a"
+      }
+    },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -19,7 +26,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.deborahkudaru.todoapp"
     },
     "web": {
       "output": "static",

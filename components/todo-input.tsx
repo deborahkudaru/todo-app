@@ -13,8 +13,8 @@ export default function TodoInput({
   onChangeText,
   onSubmit,
 }: TodoInputProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { currentTheme } = useTheme(); // Change to currentTheme
+  const isDark = currentTheme === "dark"; // Use currentTheme
 
   return (
     <View

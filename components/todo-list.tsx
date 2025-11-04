@@ -28,24 +28,22 @@ export default function TodoList({
   itemsLeft,
   onClearCompleted,
 }: TodoListProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { currentTheme } = useTheme(); // Change to currentTheme
+  const isDark = currentTheme === "dark"; // Use currentTheme
 
   return (
     <View
-      className={`rounded-[8px] ${
-        isDark ? "bg-[#25273D]" : "bg-white"
-      }`}
+      className={`rounded-[8px] ${isDark ? "bg-[#25273D]" : "bg-white"}`}
       style={{
         shadowColor: isDark ? "#000" : "#9CA3AF",
         shadowOffset: { width: 0, height: 6 },
         shadowOpacity: isDark ? 0.35 : 0.3,
         shadowRadius: 12,
         elevation: 10,
-        overflow: 'visible',
+        overflow: "visible",
       }}
     >
-      <View style={{ overflow: 'hidden', borderRadius: 8 }}>
+      <View style={{ overflow: "hidden", borderRadius: 8 }}>
         <FlatList
           data={todos}
           keyExtractor={(item) => item._id}

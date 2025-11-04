@@ -1,0 +1,25 @@
+{
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "CONVEX_DEPLOYMENT": "dev:cheery-dinosaur-348",
+        "EXPO_PUBLIC_CONVEX_URL": "https://cheery-dinosaur-348.convex.cloud"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "CONVEX_DEPLOYMENT": "dev:cheery-dinosaur-348",
+        "EXPO_PUBLIC_CONVEX_URL": "https://cheery-dinosaur-348.convex.cloud"
+      }
+    }
+  },
+  "cli": {
+    "appVersionSource": "local"
+  }
+}

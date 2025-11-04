@@ -29,13 +29,10 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  // Always render ThemeProvider + ConvexProvider immediately
   return (
     <ConvexProvider client={convex}>
       <ThemeProvider>
-        {!fontsLoaded ? (
-          <View style={{ flex: 1, backgroundColor: "black" }} />
-        ) : (
+        {fontsLoaded ? (
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen
               name="index"
@@ -44,6 +41,8 @@ export default function RootLayout() {
               }}
             />
           </Stack>
+        ) : (
+          <View style={{ flex: 1, backgroundColor: "transparent" }} />
         )}
       </ThemeProvider>
     </ConvexProvider>
