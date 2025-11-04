@@ -41,7 +41,7 @@ export default function TodoInput({
         onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
         returnKeyType="done"
-        className={`flex-1 text-base ${isDark ? "text-white" : "text-[#484B6A]"}`}
+        className={`flex-1 text-base font-josefin ${isDark ? "text-white" : "text-[#484B6A]"}`}
       />
     </View>
   );

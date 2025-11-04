@@ -78,7 +78,7 @@ export default function TodoList({
               </TouchableOpacity>
 
               <Text
-                className={`flex-1 ml-3 text-base ${
+                className={`flex-1 ml-3 text-base font-josefin ${
                   item.isCompleted
                     ? "text-gray-400 line-through"
                     : isDark
@@ -97,7 +97,7 @@ export default function TodoList({
           ListEmptyComponent={
             <View className="py-16 items-center justify-center">
               <Text
-                className={`text-center text-base ${
+                className={`text-center text-base font-josefin ${
                   isDark ? "text-gray-400" : "text-gray-500"
                 }`}
               >
@@ -112,14 +112,14 @@ export default function TodoList({
               }`}
             >
               <Text
-                className={`text-xs ${isDark ? "text-[#5B5E7E]" : "text-[#9495A5]"}`}
+                className={`text-xs font-josefin ${isDark ? "text-[#5B5E7E]" : "text-[#9495A5]"}`}
               >
                 {itemsLeft} items left
               </Text>
 
               <TouchableOpacity onPress={onClearCompleted}>
                 <Text
-                  className={`text-xs font-semibold ${
+                  className={`text-xs font-semibold font-josefin ${
                     isDark ? "text-[#5B5E7E]" : "text-[#9495A5]"
                   }`}
                 >

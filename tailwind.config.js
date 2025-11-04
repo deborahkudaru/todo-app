@@ -4,7 +4,12 @@ module.exports = {
    content: ['./app/**/*.{js,ts,tsx}', './components/**/*.{js,ts,tsx}'],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'josefin': ['JosefinSans_400Regular'],
+        'josefin-bold': ['JosefinSans_700Bold'],
+      },
+    },
   },
   plugins: [],
 }

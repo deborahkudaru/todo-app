@@ -33,7 +33,7 @@ export default function TodoFilter({
           onPress={() => onFilterChange(filterType)}
         >
           <Text
-            className={`text-sm font-bold ${
+            className={`text-sm font-bold font-josefin-bold ${
               filter === filterType
                 ? "text-[#3A7CFD]"
                 : isDark

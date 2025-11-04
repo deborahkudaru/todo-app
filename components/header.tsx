@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <View className="flex-row justify-between items-center mt-16">
       <Text
-        className={`text-3xl font-bold tracking-widest ${
+        className={`text-3xl font-bold font-josefin-bold tracking-widest ${
           isDark ? 'text-white' : 'text-white'
         }`}
       >
