@@ -18,7 +18,9 @@ export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const systemTheme = useColorScheme();
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>((systemTheme as Theme) || 'light'); 
+  const [userPreference, setUserPreference] = useState(false);
+  const [isReady, setIsReady] = useState(false); 
 
   useEffect(() => {
     const loadTheme = async () => {
@@ -26,21 +28,32 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         const saved = await AsyncStorage.getItem('theme');
         if (saved === 'light' || saved === 'dark') {
           setTheme(saved);
+          setUserPreference(true);
         } else {
           setTheme(systemTheme || 'light');
         }
-      } catch (error) {
-        setTheme(systemTheme || 'light');
+      } finally {
+        setIsReady(true);
       }
     };
+
     loadTheme();
   }, [systemTheme]);
+
+  useEffect(() => {
+    if (!userPreference && systemTheme) {
+      setTheme(systemTheme);
+    }
+  }, [systemTheme, userPreference]);
 
   const toggleTheme = async () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
+    setUserPreference(true);
     await AsyncStorage.setItem('theme', newTheme);
   };
+
+  if (!isReady) return null;
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

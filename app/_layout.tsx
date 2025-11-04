@@ -9,8 +9,8 @@ import {
   JosefinSans_700Bold,
 } from "@expo-google-fonts/josefin-sans";
 import * as SplashScreen from "expo-splash-screen";
+import { View } from "react-native";
 
-// Prevent the splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
@@ -29,25 +29,22 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
+  // Always render ThemeProvider + ConvexProvider immediately
   return (
     <ConvexProvider client={convex}>
       <ThemeProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack>
+        {!fontsLoaded ? (
+          <View style={{ flex: 1, backgroundColor: "black" }} />
+        ) : (
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack>
+        )}
       </ThemeProvider>
     </ConvexProvider>
   );

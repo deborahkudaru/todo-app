@@ -66,7 +66,7 @@ export default function HomeScreen() {
         resizeMode="cover"
       >
         <LinearGradient
-          colors={["rgba(192, 88, 243, 0.6)", "rgba(85, 221, 255, 0.6)"]}
+          colors={["rgba(192, 88, 243, 0.8)", "rgba(85, 221, 255, 0.8)"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{
