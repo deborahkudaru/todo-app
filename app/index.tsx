@@ -12,7 +12,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
 export default function HomeScreen() {
-  const { currentTheme } = useTheme(); // Change this from 'theme' to 'currentTheme'
+  const { currentTheme } = useTheme(); 
   const [text, setText] = useState<string>("");
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
@@ -51,11 +51,10 @@ export default function HomeScreen() {
   };
 
   const itemsLeft = activeTodos?.length ?? 0;
-  const isDark = currentTheme === "dark"; // Use currentTheme here
+  const isDark = currentTheme === "dark"; 
 
   return (
     <SafeAreaView className="flex-1">
-      {/* 🌆 Top section with background image and gradient overlay */}
       <ImageBackground
         source={
           isDark

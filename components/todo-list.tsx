@@ -28,8 +28,8 @@ export default function TodoList({
   itemsLeft,
   onClearCompleted,
 }: TodoListProps) {
-  const { currentTheme } = useTheme(); // Change to currentTheme
-  const isDark = currentTheme === "dark"; // Use currentTheme
+  const { currentTheme } = useTheme(); 
+  const isDark = currentTheme === "dark"; 
 
   return (
     <View
