@@ -86,9 +86,7 @@ export default function HomeScreen() {
         </View>
       </ImageBackground>
 
-      <View
-        className={`flex-1 ${isDark ? "bg-[#14151F]" : "bg-[#FAFAFA]"}`}
-      >
+      <View className={`flex-1 ${isDark ? "bg-[#14151F]" : "bg-[#FAFAFA]"}`}>
         <View className="flex-1 px-6 pt-6">
           <View className="-mt-14 mb-6">
             <TodoList
