@@ -52,7 +52,10 @@ export const toggleTodo = mutation({
   args: { id: v.id("todos") },
   handler: async (ctx, args) => {
     const todo = await ctx.db.get(args.id);
-    if (!todo) throw new Error("Todo not found");
+    if (!todo) {
+      console.warn(`Todo not found for toggle: ${args.id}`);
+      return;
+    }
 
     await ctx.db.patch(args.id, {
       isCompleted: !todo.isCompleted,
@@ -60,10 +63,18 @@ export const toggleTodo = mutation({
   },
 });
 
-// Delete a todo
+// Delete a todo - FIXED VERSION
 export const deleteTodo = mutation({
   args: { id: v.id("todos") },
   handler: async (ctx, args) => {
+    const todo = await ctx.db.get(args.id);
+
+    // Check if todo exists before deleting
+    if (!todo) {
+      console.warn(`Attempted to delete nonexistent todo: ${args.id}`);
+      return;
+    }
+
     await ctx.db.delete(args.id);
   },
 });
@@ -91,7 +102,10 @@ export const reorderTodos = mutation({
     const sortedTodos = allTodos.sort((a, b) => a.order - b.order);
 
     const todoToMove = sortedTodos.find((t) => t._id === args.todoId);
-    if (!todoToMove) throw new Error("Todo not found");
+    if (!todoToMove) {
+      console.warn(`Todo not found for reorder: ${args.todoId}`);
+      return;
+    }
 
     const oldOrder = todoToMove.order;
     const newOrder = args.newOrder;
@@ -122,6 +136,23 @@ export const reorderTodos = mutation({
     await Promise.all(
       updates.map((update) =>
         ctx.db.patch(update.id, { order: update.order })
+      )
+    );
+  },
+});
+
+// Bulk update todos order (better for drag and drop)
+export const updateTodosOrder = mutation({
+  args: {
+    todos: v.array(v.object({
+      id: v.id("todos"),
+      order: v.number()
+    }))
+  },
+  handler: async (ctx, args) => {
+    await Promise.all(
+      args.todos.map(todo =>
+        ctx.db.patch(todo.id, { order: todo.order })
       )
     );
   },
